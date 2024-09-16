@@ -7,27 +7,56 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 const AddProduct = () => {
   const [msg, setMsg] = useState("");
-  const [image, setImage] = useState({});
+  const [image, setImage] = useState([]);
   const [description, setDescription] = useState("");
   const [showSlug, setShowSlug] = useState("");
   const [categoryList, setCategoryList] = useState([]);
   const [categoryId, setCategoryId] = useState("");
+  const [subCategoryList, setSubCategoryList] = useState([]);
+  // const [subCategoryId, setSubCategoryId] = useState("");
+  const [type, setType] = useState("");
+  const [productType, setProductType] = useState([
+    {
+      value: "normal",
+      label: "normal",
+    },
+    {
+      value: "new",
+      label: "new",
+    },
+    {
+      value: "top",
+      label: "top",
+    },
+    {
+      value: "featured",
+      label: "featured",
+    },
+    {
+      value: "flash",
+      label: "flash",
+    },
+  ]);
   const [form] = Form.useForm();
 
   const userInfo = useSelector((state) => state.user.value);
 
   const onFinish = async (values) => {
+    let formData = new FormData();
+
+    formData.append("name", values.product);
+    formData.append("price", values.price);
+    formData.append("discount", values.discount);
+    formData.append("description", description);
+    formData.append("slug", values.product.split(" ").join("-").toLowerCase());
+    formData.append("categoryId", categoryId);
+    formData.append("productType", type);
+
+    image.forEach((item) => formData.append("photos", item));
+
     const { data } = await axios.post(
       "http://localhost:8000/api/v1/product/createproduct",
-      {
-        name: values.product,
-        price: values.price,
-        discount: values.discount,
-        description: description,
-        avatar: image,
-        slug: values.product.split(" ").join("-").toLowerCase(),
-        categoryId: categoryId,
-      },
+      formData,
       {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -62,10 +91,30 @@ const AddProduct = () => {
     viewCategory();
   }, []);
 
-  const handleChange = (value) => {
+  const handleChange = async (value) => {
+    const { data } = await axios.get(
+      `http://localhost:8000/api/v1/product/singlesubcategory/${value}`
+    );
+
+    let categoryData = [];
+    data.map((item) => {
+      categoryData.push({
+        value: item._id,
+        label: item.name,
+      });
+    });
+    setSubCategoryList(categoryData);
     setCategoryId(value);
   };
 
+  const handleImageChange = (e) => {
+    let arr = Array.from(e.target.files);
+    setImage(arr);
+  };
+
+  let handleProductType = (e) => {
+    setType(e);
+  };
   return (
     userInfo.role != "User" && (
       <>
@@ -143,6 +192,15 @@ const AddProduct = () => {
             <Input />
           </Form.Item>
 
+          <Form.Item label="Product Type">
+            <Select
+              style={{
+                width: 120,
+              }}
+              onChange={handleProductType}
+              options={productType}
+            />
+          </Form.Item>
           <Form.Item label="Category">
             <Select
               style={{
@@ -152,6 +210,17 @@ const AddProduct = () => {
               options={categoryList}
             />
           </Form.Item>
+          {subCategoryList.length > 0 && (
+            <Form.Item label="Sub-Category">
+              <Select
+                style={{
+                  width: 120,
+                }}
+                onChange={handleChange}
+                options={subCategoryList}
+              />
+            </Form.Item>
+          )}
 
           <CKEditor
             editor={ClassicEditor}
@@ -172,7 +241,7 @@ const AddProduct = () => {
           />
 
           <Form.Item>
-            <input type="file" onChange={(e) => setImage(e.target.files[0])} />
+            <input type="file" onChange={handleImageChange} multiple />
           </Form.Item>
 
           <Form.Item

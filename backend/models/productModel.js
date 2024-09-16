@@ -23,7 +23,10 @@ const productModel = new Schema({
     require: true,
   },
   image: {
-    type: String,
+    type: [String],
+  },
+  productType: {
+    type: "String",
   },
   categoryId: {
     type: Schema.Types.ObjectId,

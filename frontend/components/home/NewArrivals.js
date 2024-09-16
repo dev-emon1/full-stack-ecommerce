@@ -5,7 +5,16 @@ import { newArrivals } from "@/data/homeData";
 import Heading from "./Heading";
 import ViewAllLink from "./ViewAllLink";
 
-const NewArrivals = () => {
+async function getCategoryData() {
+  let data = await fetch("http://localhost:8000/api/v1/product/allproduct");
+  let categories = await data.json();
+  return categories;
+}
+
+const NewArrivals = async () => {
+  let data = await getCategoryData();
+  console.log(data);
+
   return (
     <div className="arrivals-part">
       <ViewAllLink>
@@ -13,26 +22,26 @@ const NewArrivals = () => {
         <p className="view-text">View All</p>
       </ViewAllLink>
       <div className="arrivals-items">
-        {newArrivals.map((item, i) => (
+        {data.map((item, i) => (
           <div className="items-list" key={i}>
             <div className="items-img">
               <Images
-                src={item.img}
+                src={`http://localhost:8000${item.image[0]}`}
                 width={230}
                 height={290}
                 alt="newArrivals"
               />
               <div className="item-tag">
-                <p>{item.tag}</p>
+                <p>{item.productType}</p>
               </div>
             </div>
             <div className="item-text">
-              <h4>{item.deviceName}</h4>
-              <h3>{item.rate}</h3>
-              <div className="rating">
+              <h4>{item.name}</h4>
+              <h3>rate</h3>
+              {/* <div className="rating">
                 <Images src={item.star} width={20} height={20} alt="star" />
                 <p>{item.sold}</p>
-              </div>
+              </div> */}
             </div>
           </div>
         ))}

@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 const AddSubCategory = () => {
   const [categoryList, setCategoryList] = useState([]);
   const [categoryId, setCategoryId] = useState("");
+  const [image, setImage] = useState({});
   const [msg, setMsg] = useState("");
   const [form] = Form.useForm();
   const userInfo = useSelector((state) => state.user.value);
@@ -15,7 +16,13 @@ const AddSubCategory = () => {
       "http://localhost:8000/api/v1/product/createsubcategory",
       {
         name: values.subcategory,
+        avatar: image,
         categoryId: categoryId,
+      },
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       }
     );
     setMsg(data);
@@ -92,7 +99,9 @@ const AddSubCategory = () => {
           >
             <Input />
           </Form.Item>
-
+          <Form.Item>
+            <input type="file" onChange={(e) => setImage(e.target.files[0])} />
+          </Form.Item>
           <Form.Item
             wrapperCol={{
               offset: 8,

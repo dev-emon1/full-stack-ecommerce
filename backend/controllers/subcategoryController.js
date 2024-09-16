@@ -15,6 +15,7 @@ exports.addSubCategoryController = async (req, res) => {
     } else {
       const category = new SubCategory({
         name: name.toLowerCase(),
+        image: `/uploads/${req.file.filename}`,
         categoryId: categoryId,
       });
       category.save();
@@ -50,6 +51,16 @@ exports.deleteSubCategoryController = async (req, res) => {
   try {
     const data = await SubCategory.findOneAndDelete({ _id: id });
     res.send("Subcategory deleted");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+exports.singleSubCategoryController = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const data = await SubCategory.find({ categoryId: id });
+    res.send(data);
   } catch (error) {
     console.log(error);
   }

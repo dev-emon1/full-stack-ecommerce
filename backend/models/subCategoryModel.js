@@ -11,6 +11,9 @@ const subCategorySchema = new Schema({
     enum: ["approve", "waiting", "reject"],
     default: "waiting",
   },
+  image: {
+    type: String,
+  },
   categoryId: {
     type: Schema.Types.ObjectId,
     ref: "Category",

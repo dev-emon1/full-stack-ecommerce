@@ -18,6 +18,7 @@ const {
   viewSubCategoryController,
   deleteSubCategoryController,
   approveSubCategoryController,
+  singleSubCategoryController,
 } = require("../../controllers/subcategoryController");
 
 const storage = multer.diskStorage({
@@ -32,7 +33,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-router.post("/createproduct", upload.single("avatar"), addProductController);
+router.post("/createproduct", upload.array("photos", 12), addProductController);
 router.get("/allproduct", viewProductController);
 router.get("/singleproduct/:slug", singleProductController);
 
@@ -42,9 +43,14 @@ router.post("/approvecategory", approveCategoryController);
 router.delete("/deletecategory/:id", deleteCategoryController);
 router.post("/editcategory", editCategoryController);
 
-router.post("/createsubcategory", addSubCategoryController);
+router.post(
+  "/createsubcategory",
+  upload.single("avatar"),
+  addSubCategoryController
+);
 router.get("/allsubcategory", viewSubCategoryController);
 router.post("/approvesubcategory", approveSubCategoryController);
 router.delete("/deletesubcategory/:id", deleteSubCategoryController);
+router.get("/singlesubcategory/:id", singleSubCategoryController);
 
 module.exports = router;
