@@ -196,12 +196,22 @@
 .count .minus {
   padding: 5px 12px;
   border-radius: 5px;
-  border: 1px solid var(--red-color);
-  background: var(--red-color);
-  color: var(--white-color);
+  color: var(--black-color);
+  background: var(--border-color);
   font-size: 18px;
   font-weight: 500;
   cursor: pointer;
+}
+
+.count .minus:hover {
+  padding: 5px 12px;
+  border-radius: 5px;
+  color: var(--white-color);
+  background: var(--red-color);
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all ease-in 0.25s;
 }
 
 .count p {
@@ -221,6 +231,17 @@
   font-size: 18px;
   font-weight: 500;
   cursor: pointer;
+}
+
+.count .plas:hover {
+  padding: 5px 12px;
+  border-radius: 5px;
+  color: var(--white-color);
+  background: var(--red-color);
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all ease-in 0.25s;
 }
 
 .chrt .chart {

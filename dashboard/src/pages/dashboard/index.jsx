@@ -31,6 +31,7 @@ const Dashboard = () => {
       getItem("Products", "sub2", <AppstoreOutlined />, [
         getItem("Add Product", "/dashboard/addproduct"),
         getItem("View Product", "/dashboard/viewproduct"),
+        getItem("Add FlashSale", "/dashboard/addflashsale"),
       ]),
     {
       type: "divider",

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Images from "next/image";
 
-const ProductDetailsRight = () => {
+const ProductDetailsRight = ({ data }) => {
   const [count, setCount] = useState(0);
 
   const handleDecrease = () => {
@@ -22,9 +22,9 @@ const ProductDetailsRight = () => {
             <a href="/">Home</a>
           </li>
           <li>
-            <a href="/pages/product">Product</a>
+            <a href="/product">Product</a>
           </li>
-          <li>Wireless Microphone</li>
+          <li>{data[0].name}</li>
         </ul>
       </div>
 
@@ -41,11 +41,19 @@ const ProductDetailsRight = () => {
       </div>
 
       <div className="product-heading">
-        <h3>Wireless Microphone</h3>
+        <h3>{data[0].name}</h3>
         <div className="rate-percent">
-          <p>$29.00</p>
-          <span>$99.00</span>
-          <button>Save 50%</button>
+          {data[0].discount ? (
+            <>
+              <p>${data[0].price - data[0].discount}</p>
+              <span>${data[0].price}</span>
+              <button>
+                Save {Math.floor((data[0].discount / data[0].price) * 100)}%
+              </button>
+            </>
+          ) : (
+            <p>${data[0].price}</p>
+          )}
         </div>
         <div className="delivery-voucher-stock">
           <div className="delivery">

@@ -19,6 +19,7 @@ import AddSubCategory from "./pages/subcategory/AddSubCategory";
 import ViewCategory from "./pages/category/ViewCategory";
 import ViewSubCategory from "./pages/subcategory/ViewSubCategory";
 import ViewProduct from "./pages/product/ViewProduct";
+import AddFlashSale from "./pages/product/AddFlashSale";
 
 function App() {
   const router = createBrowserRouter(
@@ -33,6 +34,7 @@ function App() {
         <Route path="/otp/:email" element={<OtpVerification />} />
         <Route path="/dashboard" element={<Dashboard />}>
           <Route path="addproduct" element={<AddProduct />} />
+          <Route path="addflashsale" element={<AddFlashSale />} />
           <Route path="addcategory" element={<AddCategory />} />
           <Route path="addsubcategory" element={<AddSubCategory />} />
           <Route path="viewcategory" element={<ViewCategory />} />

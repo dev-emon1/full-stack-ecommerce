@@ -144,7 +144,6 @@
   width: 150px;
   text-align: center;
   cursor: pointer;
-
   text-transform: capitalize;
 }
 
@@ -175,7 +174,7 @@
   margin-top: 32px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   gap: 26px;
 }
 
@@ -345,8 +344,15 @@
 
 .flash-sec-text .current-num {
   font-size: 24px;
-  font-weight: 400;
+  font-weight: 500;
   color: var(--red-color);
+}
+
+.flash-sec-text .divide {
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--icon-color);
+  margin: 0 8px;
 }
 
 .flash-sec-text .available-sold {
@@ -412,7 +418,7 @@
 
 /* =====================quality part end =================== */
 
-/* =====================collection part start =================== */
+/* =====================Feature Product part start =================== */
 .collection-part {
   margin-bottom: 160px;
 }
@@ -487,7 +493,6 @@
   position: absolute;
   top: 20px;
   right: 30px;
-  width: 70px;
   text-align: center;
 }
 
@@ -557,7 +562,7 @@
 .all-prdct {
   margin-top: 32px;
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   gap: 16px;
 }
 
@@ -582,8 +587,8 @@
 }
 
 .product-text p {
-  font-size: 18px;
-  font-weight: 400;
+  font-size: 24px;
+  font-weight: 500;
   color: var(--red-color);
 }
 

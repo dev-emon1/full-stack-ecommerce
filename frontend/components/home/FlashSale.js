@@ -5,9 +5,14 @@ import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import { useCountdown } from "react-countdown-circle-timer";
 import FlashSaleTimeout from "./FlashSaleTimeout";
 
-const FlashSale = () => {
+const FlashSale = ({ time }) => {
+  console.log(time);
+
+  let [endTime, setEndTime] = useState(time);
   const startTime = Date.now() / 1000;
-  const endTime = startTime + 243248;
+
+  const endTimeStamp = new Date(endTime).getTime() / 1000;
+  const remainingTime = endTimeStamp - startTime;
 
   const minuteSeconds = 60;
   const hourSeconds = 3600;
@@ -33,7 +38,6 @@ const FlashSale = () => {
   const getTimeHours = (time) => ((time % daySeconds) / hourSeconds) | 0;
   const getTimeDays = (time) => (time / daySeconds) | 0;
 
-  const remainingTime = endTime - startTime;
   const days = Math.ceil(remainingTime / daySeconds);
   const daysDuration = days * daySeconds;
   return (

@@ -87,7 +87,7 @@ function SamplePrevArrowsec(props) {
   );
 }
 
-const SingleProductView = () => {
+const SingleProductView = ({ data }) => {
   const [nav1, setNav1] = useState(null);
   const [nav2, setNav2] = useState(null);
   let sliderRef1 = useRef(null);
@@ -125,38 +125,16 @@ const SingleProductView = () => {
               ref={(slider) => (sliderRef1 = slider)}
               {...settings}
             >
-              <div>
-                <Images
-                  src="/offers_1.png"
-                  width={750}
-                  height={500}
-                  alt="product-img"
-                />
-              </div>
-              <div>
-                <Images
-                  src="/Offers_3.png"
-                  width={750}
-                  height={500}
-                  alt="product-img"
-                />
-              </div>
-              <div>
-                <Images
-                  src="/Offers_2.png"
-                  width={750}
-                  height={500}
-                  alt="product-img"
-                />
-              </div>
-              <div>
-                <Images
-                  src="/Offers_4.png"
-                  width={750}
-                  height={500}
-                  alt="product-img"
-                />
-              </div>
+              {data[0].image.map((item, i) => (
+                <div key={i}>
+                  <Images
+                    src={`http://localhost:8000${item}`}
+                    width={750}
+                    height={500}
+                    alt="product-img"
+                  />
+                </div>
+              ))}
             </Slider>
             <div className="sec-slide">
               <Slider
@@ -167,44 +145,22 @@ const SingleProductView = () => {
                 focusOnSelect={true}
                 {...settingssecond}
               >
-                <div>
-                  <Images
-                    src="/offers_1.png"
-                    width={150}
-                    height={150}
-                    alt="product-img"
-                  />
-                </div>
-                <div>
-                  <Images
-                    src="/Offers_3.png"
-                    width={150}
-                    height={150}
-                    alt="product-img"
-                  />
-                </div>
-                <div>
-                  <Images
-                    src="/Offers_2.png"
-                    width={150}
-                    height={150}
-                    alt="product-img"
-                  />
-                </div>
-                <div>
-                  <Images
-                    src="/Offers_4.png"
-                    width={150}
-                    height={150}
-                    alt="product-img"
-                  />
-                </div>
+                {data[0].image.map((item, i) => (
+                  <div key={i}>
+                    <Images
+                      src={`http://localhost:8000${item}`}
+                      width={150}
+                      height={150}
+                      alt="product-img"
+                    />
+                  </div>
+                ))}
               </Slider>
             </div>
           </div>
         </div>
         <div className="prdct-details">
-          <ProductDetailsRight />
+          <ProductDetailsRight data={data} />
         </div>
       </div>
     </div>

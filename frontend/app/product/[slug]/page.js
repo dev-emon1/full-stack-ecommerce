@@ -1,13 +1,13 @@
 import Container from "@/components/container/Container";
+import SingleProduct from "@/components/productview";
 import SingleProductBottom from "@/components/productview/SingleProductBottom";
 import SingleProductView from "@/components/productview/SingleProductView";
 import React from "react";
 
-const ProductView = () => {
+const ProductView = ({ params }) => {
   return (
     <Container>
-      <SingleProductView />
-      <SingleProductBottom />
+      <SingleProduct slug={params.slug} />
     </Container>
   );
 };
